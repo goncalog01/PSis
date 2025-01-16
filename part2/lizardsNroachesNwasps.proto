@@ -1,0 +1,111 @@
+syntax = "proto2";
+
+enum ResponseType {
+    RESPONSE_SUCCESS = 0;
+    RESPONSE_FAIL = 1;
+}
+
+enum Direction {
+    LEFT = 0;
+    RIGHT = 1;
+    UP = 2;
+    DOWN = 3;
+}
+
+message lizard_connect_resp {
+    required ResponseType response_type = 1;
+    required bytes character = 2;
+    required int32 nonce = 3;
+}
+
+message lizard_movement_req {
+    required bytes character = 1;
+    required Direction direction = 2;
+    required int32 nonce = 3;
+}
+
+message lizard_movement_resp {
+    required ResponseType response_type = 1;
+    required int32 score = 2;
+    required int32 new_nonce = 3;
+}
+
+message roaches_connect_req {
+    required int32 number = 1;
+    repeated int32 scores = 2;
+}
+
+message roaches_connect_resp {
+    required ResponseType response_type = 1;
+    repeated int32 characters = 2;
+    repeated int32 nonces = 3;
+}
+
+message roaches_movement_req {
+    required int32 character = 1;
+    required Direction direction = 2;
+    required int32 nonce = 3;
+}
+
+message roaches_movement_resp {
+    required ResponseType response_type = 1;
+    required int32 new_nonce = 2;
+}
+
+message wasps_connect_req {
+    required int32 number = 1;
+}
+
+message wasps_connect_resp {
+    required ResponseType response_type = 1;
+    repeated int32 characters = 2;
+    repeated int32 nonces = 3;
+}
+
+message wasps_movement_req {
+    required int32 character = 1;
+    required Direction direction = 2;
+    required int32 nonce = 3;
+}
+
+message wasps_movement_resp {
+    required ResponseType response_type = 1;
+    required int32 new_nonce = 2;
+}
+
+message lizard_disconnect_req {
+    required bytes character = 1;
+    required int32 nonce = 2;
+}
+
+message lizard_disconnect_resp {
+    required ResponseType response_type = 1;
+}
+
+message roaches_disconnect_req {
+    repeated int32 ids = 1;
+    repeated int32 nonces = 2;
+    required int32 number = 3;
+}
+
+message roaches_disconnect_resp {
+    required ResponseType response_type = 1;
+}
+
+message wasps_disconnect_req {
+    repeated int32 ids = 1;
+    repeated int32 nonces = 2;
+    required int32 number = 3;
+}
+
+message wasps_disconnect_resp {
+    required ResponseType response_type = 1;
+}
+
+message field_update {
+    required uint32 x = 1;
+    required uint32 y = 2;
+    required bytes character = 3;
+    optional bytes id = 4;
+    optional int32 new_score = 5;
+}
